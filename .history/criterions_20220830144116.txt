@@ -1,4 +1,0 @@
-\\IEEEtitleabstractindextext{(.*)} -> $1,gms
-\\begin{abstract}(.*)\end{abstract} -> $1
-\\.*{ -> ""
-} -> ""
