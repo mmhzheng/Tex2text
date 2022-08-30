@@ -1,0 +1,15 @@
+# 消除注释
+%.*\n -> :g
+
+# 消除常见的命令
+\\IEEEtitleabstractindextext{(.*)} -> $1:gs
+
+# 消除begin and
+\\begin{abstract}(.*)\\end{abstract} -> $1:gs
+\\begin{IEEEkeywords}(.*)\\end{IEEEkeywords} -> $1:gs
+\\section{(.*)} -> $1:g
+\\label{.*?} -> :g
+~\\cite{.*?} -> :g
+\\textit{(.*?)} -> $1:g
+\\textbf{(.*?)} -> $1:g
+\$.*?\$ -> EXP:g

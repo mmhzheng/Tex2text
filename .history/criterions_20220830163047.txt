@@ -1,0 +1,25 @@
+# 消除注释
+%.*\n -> :
+
+# 消除begin...end关键字
+\\begin{abstract}(.*)\\end{abstract} : s
+\\begin{IEEEkeywords}(.*)\\end{IEEEkeywords} -> $1:s
+
+#消除图片
+\\begin{figure}.*\\end{figure} -> :s
+
+#消除列表
+\\begin{itemize}(.*)\\end{itemize} -> $1:s
+\\item (.*?) -> :
+
+# 消除常见的命令
+\\IEEEtitleabstractindextext{(.*)} -> $1:s
+\\section{(.*)} -> $1:
+\\label{.*?} -> :
+~\\cite{.*?} -> :
+\\textit{(.*?)} -> $1:
+\\textbf{(.*?)} -> $1:
+~\\ref{.*?} -> :
+
+# 替换数学表达式
+\$.*?\$ -> EXP:

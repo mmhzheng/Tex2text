@@ -1,0 +1,4 @@
+\\IEEEtitleabstractindextext{(.*)} -> $1:gs
+\\begin{abstract}(.*)\end{abstract} -> $1:gs
+%.*\n -> :g
+\begin{IEEEkeywords}(.*)\end{abstract}

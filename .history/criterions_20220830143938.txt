@@ -1,0 +1,4 @@
+\\IEEEtitleabstractindextext{(.*)} -> $1
+\\.*{.*} -> ""
+\\.*{ -> ""
+} -> ""
