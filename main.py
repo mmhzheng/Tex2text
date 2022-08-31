@@ -2,10 +2,10 @@
 
 from datetime import datetime
 import sys
-import os
-from PyQt5.QtWidgets import *
-from matplotlib.pyplot import table
-from numpy import mat
+from os import getcwd
+from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
+                             QTextEdit, QTableWidget, QTableWidgetItem, QFileDialog, QMessageBox)
+from PyQt5.QtGui import QIcon
 from criteria import parse_criterion_v1, parse_criterion_v2
 
 CONFIG_ROW = 50
@@ -65,6 +65,7 @@ class GitHelperMainW(QWidget):
         self.setGeometry(300, 300, 280, 170)
         self.resize(700, 650)
         self.setWindowTitle("My Tex Helper")
+        self.setWindowIcon(QIcon("./icon.ico"))
         self.show()
         
     def _handle_text_changed(self):
@@ -89,7 +90,7 @@ class GitHelperMainW(QWidget):
     def _handle_load_config(self):
         self._clear_table()
         try:
-            filename,_ =QFileDialog.getOpenFileName(self, 'Load Configs', os.getcwd(), "ALL Files(*);; Text Files(*.txt)")
+            filename,_ =QFileDialog.getOpenFileName(self, 'Load Configs', getcwd(), "ALL Files(*);; Text Files(*.txt)")
             with open(filename, encoding='utf-8') as file_obj:
                 lines = file_obj.readlines()
                 try:
@@ -108,7 +109,7 @@ class GitHelperMainW(QWidget):
 
 
     def _handle_save_config(self):
-        dirname = QFileDialog.getExistingDirectory(self, 'Save Configs', os.getcwd())
+        dirname = QFileDialog.getExistingDirectory(self, 'Save Configs', getcwd())
         entries = []
         for i in range(CONFIG_ROW):
             match = self.tableWidget.item(i, 0).text()
