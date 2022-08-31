@@ -4,9 +4,9 @@ A useless tool that translates a command-oriented tex file to a pure text file. 
 
 ## Get Started
 
-You can download and run the [executable binary file]().
+You can download and run the [executable binary file](https://github.com/mmhzheng/Tex2text/releases/tag/v0.2-alpha).
 
-1. Load a configure file with replacing rules. Here I give a [example configre file](./config_2022_08_31_16_11.txt).
+1. Load a configure file with replacing rules. Here I give a [example configre file](./config_2022_08_31_22_05.txt).
 
 ![step 1](doc/step1.png)
 

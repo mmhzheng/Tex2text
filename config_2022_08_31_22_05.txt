@@ -1,0 +1,35 @@
+%.*?\n -> $0:
+\\begin{abstract}(.*)\\end{abstract} -> $1:s
+\\begin{IEEEkeywords}(.*)\\end{IEEEkeywords} -> $1:s
+\\begin{figure}.*\\end{figure} -> $0:s
+\\begin{itemize}(.*)\\end{itemize} -> $1:s
+\\item (.*?) -> $1:
+\\IEEEtitleabstractindextext{(.*)} -> $1:s
+\\section{(.*)} -> $1:
+\\label{.*?} -> $0:
+~\\cite{.*?} -> $0:
+\\textit{(.*?)} -> $1:
+\\textbf{(.*?)} -> $1:
+~\\ref{.*?} -> $0:
+\$.*?\$ -> EXP:
+\\S\\ref{.*?} -> this Section:
+\\documentclass.*?\n -> $0:
+\\input.*?\n -> $0:
+\\hyphenation.*?\n -> $0:
+\\begin{document}(.*?)\\end{document} -> $1:s
+\\title{(.*?)} -> $1:s
+\\author{(.*?)} -> $1:s
+\\IEEE.*?\n -> $0:
+\\maketitle -> $0:
+\\usepackage.*?\n -> $0:
+\\newcommand.*?\n -> $0:
+\\renewcommand.*?\n -> $0:
+\\rev.*?{(.*?)} -> $1:s
+\\sys~ -> Our system :
+\\sys -> Our system:
+\\eg, -> e.g.,:
+\\ie, -> i.e.,:
+\\subsection{(.*)} -> $1:
+\\subsubsection{(.*)} -> $1:
+\\noindent -> $0:
+\\begin{figure.}.*?\\end{figure.} -> $0:

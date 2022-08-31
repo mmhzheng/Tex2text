@@ -69,16 +69,20 @@ class GitHelperMainW(QWidget):
         self.show()
         
     def _handle_text_changed(self):
-        input_str = self.inputEdit.toPlainText()
-        criterions = []
-        for i in range(CONFIG_ROW):
-            match = self.tableWidget.item(i, 0).text()
-            action = self.tableWidget.item(i, 1).text()
-            if match != "" and action != "":
-                criterions.append(parse_criterion_v2(match, action))
-        for criteria in criterions:
-            input_str = criteria.apply(input_str)
-        self.outputEdit.setText(input_str)
+        try:
+            input_str = self.inputEdit.toPlainText()
+            criterions = []
+            for i in range(CONFIG_ROW):
+                match = self.tableWidget.item(i, 0).text()
+                action = self.tableWidget.item(i, 1).text()
+                if match != "" and action != "":
+                    criterions.append(parse_criterion_v2(match, action))
+            for criteria in criterions:
+                input_str = criteria.apply(input_str)
+            self.outputEdit.setText(input_str)
+        except Exception as e:
+            QMessageBox.information(self, "Wrong", "Invalid configure rules.", QMessageBox.No)
+            return
         pass
 
 
@@ -100,7 +104,6 @@ class GitHelperMainW(QWidget):
                         self.tableWidget.item(idx, 0).setText(criteria.match)
                         self.tableWidget.item(idx, 1).setText(criteria.action)
                 except Exception as e:
-                    print(e)
                     QMessageBox.information(self, "Wrong", "Invalid configure file format.", QMessageBox.No)
         except:
             return
