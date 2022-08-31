@@ -18,17 +18,28 @@ class Criteria :
         
         if substitute[0] == '$':
             if substitute[1] == '0': 
-                self.substitute = SubstituteType.Empty
+                self.substitute_type = SubstituteType.Empty
             else:
-                self.substitute = SubstituteType.Reserve
+                self.substitute_type = SubstituteType.Reserve
         else:
-            self.substitute = SubstituteType.Symbol
+            self.substitute_type = SubstituteType.Symbol
+            self.substitute_content = substitute
             
         if flag == "":
             self.flag = 0
         else:
             self.flag = re.S
-        pass
+
+        self._match = pattern
+        self._action = substitute + ":" + flag
+
+    @property
+    def match(self):
+        return self._match
+    
+    @property
+    def action(self):
+        return self._action
     
     def apply(self, line : str ) -> str:
         """_summary_
@@ -37,7 +48,7 @@ class Criteria :
         Returns:
             str: processed string.
         """
-        if self.substitute == SubstituteType.Reserve:
+        if self.substitute_type == SubstituteType.Reserve:
             match = re.findall(self.pattern, line, flags=self.flag)
             for m in match: 
                 temp_re = re.sub(self.pattern, r'__TEMPLATE__', line, flags=self.flag, count=1)
@@ -45,17 +56,24 @@ class Criteria :
                 # Problem: text bf change to all
             return line
 
-        elif self.substitute == SubstituteType.Empty:
+        elif self.substitute_type == SubstituteType.Empty:
             return re.sub(self.pattern, "", line, flags=self.flag)
         else:
-            return re.sub(self.pattern, "SYMBOL", line, flags=self.flag)
+            return re.sub(self.pattern, self.substitute_content, line, flags=self.flag)
 
-            
-        
-def parse_criterion(line: str) -> Criteria:
+
+def parse_criterion_v1(line) -> Criteria:
     items = line.split("->")
     pattern = r'{}'.format(items[0].strip())
     targets = items[1].strip().split(":")
+    if len(targets) > 1:
+        return Criteria(pattern, r'{}'.format(targets[0]), r'{}'.format(targets[1]))
+    else:
+        return Criteria(pattern, r'{}'.format(targets[0]), "")
+
+def parse_criterion_v2(match, action) -> Criteria:
+    pattern = match
+    targets = action.strip().split(":")
     if len(targets) > 1:
         return Criteria(pattern, r'{}'.format(targets[0]), r'{}'.format(targets[1]))
     else:
